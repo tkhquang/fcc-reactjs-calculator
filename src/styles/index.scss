@@ -1,0 +1,146 @@
+@import "mixins";
+
+@import url("https://fonts.googleapis.com/css?family=Open+Sans");
+@import url("https://fonts.googleapis.com/css?family=Press+Start+2P");
+@font-face {
+  font-family: "Digital";
+  src: url("//db.onlinewebfonts.com/t/8e22783d707ad140bffe18b2a3812529.eot");
+  src: url("//db.onlinewebfonts.com/t/8e22783d707ad140bffe18b2a3812529.eot?#iefix")
+      format("embedded-opentype"),
+    url("//db.onlinewebfonts.com/t/8e22783d707ad140bffe18b2a3812529.woff2")
+      format("woff2"),
+    url("//db.onlinewebfonts.com/t/8e22783d707ad140bffe18b2a3812529.woff")
+      format("woff"),
+    url("//db.onlinewebfonts.com/t/8e22783d707ad140bffe18b2a3812529.ttf")
+      format("truetype"),
+    url("//db.onlinewebfonts.com/t/8e22783d707ad140bffe18b2a3812529.svg#Digital-7")
+      format("svg");
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  background-color: #012;
+  color: #ddd;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+#root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  height: 100%;
+  width: 100%;
+}
+
+.calculator {
+  background-image: linear-gradient(-45deg, #123, #123, #234);
+  width: 350px;
+  min-width: 350px;
+  height: auto;
+  padding: 0 20px 20px 20px;
+  margin: auto;
+  border-radius: 15px;
+  border-style: solid;
+  border-width: 3px;
+  border-top-color: #345;
+  border-left-color: #123;
+  border-right-color: #012;
+  border-bottom-color: #012;
+  box-shadow: 1px 1px 5px #000;
+  .header {
+    user-select: none;
+    text-transform: uppercase;
+    height: 50px;
+    color: #7ad;
+    text-align: center;
+    line-height: 50px;
+    font-family: "Press Start 2P", cursive;
+    text-shadow: 1px 2px 2px #000;
+    margin: 0;
+    padding: 0;
+  }
+
+  .display-container {
+    display: inline-block;
+    font-size: 2.5em;
+    width: 100%;
+    line-height: 70px;
+    color: #aaa;
+    background-color: #0a1a2a;
+    direction: rtl;
+    text-align: right;
+    font-family: "Digital", monospace;
+    overflow-y: auto;
+    overflow-x: scroll;
+    white-space: nowrap;
+    box-shadow: inset 1px 2px 5px #000, inset 0px -1px 2px #000;
+
+    @include apply-scrollbar(15px, #0079d3, #2e3645);
+
+    .display {
+      padding: 0 0.3em;
+    }
+  }
+}
+
+.button-container {
+  $buttonIds: "zero", "one", "two", "three", "four", "five", "six", "seven",
+    "eight", "nine", "add", "subtract", "multiply", "divide", "clear",
+    "cancel-entry", "pos-neg", "decimal", "equal";
+  display: grid;
+  grid-template-areas:
+    "clear clear cancel-entry divide"
+    "seven eight nine multiply"
+    "four five six subtract"
+    "one two three add"
+    "pos-neg zero decimal equal";
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto;
+  @for $i from 1 through length($buttonIds) {
+    .#{nth($buttonIds, $i)} {
+      grid-area: #{nth($buttonIds, $i)};
+    }
+  }
+  margin-top: 20px;
+
+  .btn {
+    font-family: "Open Sans", sans-serif;
+    color: #789;
+    display: block;
+    height: 70px;
+    text-align: center;
+    text-shadow: 1px 2px 2px #000;
+    font-size: 1.5em;
+    cursor: pointer;
+    background-color: #234;
+    border-radius: 7px;
+    border: 1px solid #012;
+    box-shadow: 1px 2px 2px #000;
+    &:active {
+      box-shadow: inset 0px 0px 5px #000;
+      background-color: #162636;
+    }
+    &:focus {
+      position: relative;
+    }
+  }
+
+  .clear,
+  .cancel-entry,
+  .equal {
+    background-color: #912;
+    &:active {
+      background-color: #860616;
+    }
+  }
+}

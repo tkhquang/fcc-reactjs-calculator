@@ -1,0 +1,65 @@
+/// Apply custom scrollbar styles to the current element.
+///
+/// @param {length | string} $webkit-size -
+///   The size of the scrollbars for webkit based browsers.
+/// @param {color} $foreground-color -
+///   The color of scrollbar thumb.
+/// @param {color} $background-color -
+///   The color of scrollbar track.
+/// @param {auto | thin | none} $moz-size [null] -
+///   Optional size of the scrollbars for firefox,
+///   auto generate based on `$webkit-size` if it's not set.
+/// @example scss -
+///   html ,body {
+///     @include apply-scrollbar(10px, #0079d3, #2e3645);
+///   }
+@mixin apply-scrollbar($webkit-size, $foreground-color, $background-color, $moz-size: null) {
+  @if $moz-size == null {
+    @if type-of($webkit-size) == number {
+      @if $webkit-size <= 8px {
+        $moz-size: thin
+      }
+    
+      @else if $webkit-size == 0 {
+        $moz-size: none
+      }
+  
+      @else {
+        $moz-size: auto
+      }
+    }
+    @else {
+      $moz-size: auto
+    }
+  }
+
+  // webkit based browsers
+  &::-webkit-scrollbar {
+    width: $webkit-size;
+    height: $webkit-size;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $foreground-color;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: mix($foreground-color, #000000, 80%);
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $background-color;
+  }
+
+  &::-webkit-scrollbar-corner {
+    background-color: $background-color;
+  }
+
+  // For Internet Explorer
+  scrollbar-face-color: $foreground-color;
+  scrollbar-track-color: $background-color;
+
+  // For Firefox
+  scrollbar-color: $foreground-color $background-color;
+  scrollbar-width: $moz-size;
+}
