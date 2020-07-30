@@ -1,8 +1,8 @@
 {
-  "name": "simple-reactjs-calculator",
+  "name": "fcc-reactjs-calculator",
   "version": "0.1.0",
   "private": true,
-  "homepage": "/simple-reactjs-calculator",
+  "homepage": "/fcc-reactjs-calculator",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
